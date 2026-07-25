@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Medico Rossi</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <span class="logo">✚ Centro Medico Rossi</span>
+        <nav>
+            <a href="/docs" target="_blank">API Docs</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>La tua salute, senza attese</h1>
+            <p>Prenota visite specialistiche presso il Centro Medico Rossi in pochi click.</p>
+            <button class="btn-primary" disabled title="Disponibile nelle prossime versioni">Prenota una visita</button>
+        </section>
+
+        <section class="status-card">
+            <h2>Stato del servizio</h2>
+            <p>
+                <span id="status-dot" class="dot"></span>
+                <span id="status-text">Verifica in corso…</span>
+            </p>
+            <p class="version" id="status-version"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Project Work — CdS Informatica per le Aziende Digitali (L-31) - Rossi</p>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
