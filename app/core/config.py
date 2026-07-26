@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     )
     app_version: str = "1.0"
     debug: bool = True
+    database_url: str = "sqlite:///./clinica.db"
     model_config = SettingsConfigDict(env_file=".env")
 
 
