@@ -27,7 +27,10 @@ source .venv/bin/activate
 # 2. Installare le dipendenze
 pip install -r requirements.txt
 
-# 3. Avviare il server di sviluppo
+# 3. Popolare il database con dati di esempio (opzionale)
+python -m app.seed
+
+# 4. Avviare il server di sviluppo
 uvicorn app.main:app --reload
 ```
 
@@ -35,6 +38,8 @@ L'applicazione è raggiungibile su `http://127.0.0.1:8000`:
 
 - `http://127.0.0.1:8000/` — frontend (landing page)
 - `http://127.0.0.1:8000/health` — health check
+- `http://127.0.0.1:8000/api/patients` — API pazienti
+- `http://127.0.0.1:8000/api/doctors` — API medici
 - `http://127.0.0.1:8000/docs` — documentazione Swagger UI
 - `http://127.0.0.1:8000/redoc` — documentazione ReDoc
 
@@ -44,7 +49,13 @@ L'applicazione è raggiungibile su `http://127.0.0.1:8000`:
 healthcare-api/
 ├── app/
 │   ├── core/          # Configurazione dell'applicazione
+│   ├── routers/       # Endpoint REST (pazienti, medici)
+│   ├── database.py    # Engine, sessione e base ORM
+│   ├── models.py      # Modelli SQLAlchemy (Patient, Doctor, Appointment)
+│   ├── schemas.py     # Schemi Pydantic di input/output
+│   ├── seed.py        # Popolamento del database con dati di esempio
 │   └── main.py        # Entry point e factory FastAPI
+├── docs/              # Documentazione di progetto (diagramma ER)
 ├── frontend/
 │   ├── css/           # Fogli di stile
 │   ├── js/            # Script client (chiamate alle API)
