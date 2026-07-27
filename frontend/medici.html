@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I nostri medici - Centro Medico Rossi</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <span class="logo">✚ Centro Medico Rossi</span>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/medici.html" class="active">Medici</a>
+            <a href="/docs" target="_blank">API Docs</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-head">
+            <h1>I nostri medici</h1>
+            <label for="specialization-filter">Specializzazione:</label>
+            <select id="specialization-filter">
+                <option value="">Tutte</option>
+            </select>
+        </section>
+
+        <p id="doctors-message" class="hint" hidden></p>
+        <section id="doctors-list" class="doctors-grid"></section>
+    </main>
+
+    <footer>
+        <p>Project Work — CdS Informatica per le Aziende Digitali (L-31) - Rossi</p>
+    </footer>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/medici.js"></script>
+</body>
+</html>

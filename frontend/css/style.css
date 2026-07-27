@@ -43,9 +43,11 @@ body {
     color: var(--text-light);
     text-decoration: none;
     font-weight: 500;
+    margin-left: 1.25rem;
 }
 
-.navbar a:hover {
+.navbar a:hover,
+.navbar a.active {
     color: var(--primary);
 }
 
@@ -131,6 +133,58 @@ main {
 footer {
     text-align: center;
     padding: 1.5rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+}
+
+.page-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.page-head h1 {
+    font-size: 1.6rem;
+    margin-right: auto;
+}
+
+.page-head select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: var(--card);
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+.doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1rem;
+}
+
+.doctor-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.doctor-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+}
+
+.doctor-card .specialization {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.doctor-card .detail {
     color: var(--text-light);
     font-size: 0.85rem;
 }
