@@ -12,6 +12,10 @@ class Settings(BaseSettings):
     app_version: str = "1.0"
     debug: bool = True
     database_url: str = "sqlite:///./clinica.db"
+    secret_key: str = "chiave-di-sviluppo-da-sostituire-in-produzione"
+    access_token_expire_minutes: int = 60
+    clinic_open_hour: int = 9
+    clinic_close_hour: int = 18
     model_config = SettingsConfigDict(env_file=".env")
 
 

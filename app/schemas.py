@@ -1,8 +1,10 @@
 import re
-from datetime import date
+from datetime import date, datetime
 from typing import Generic, TypeVar
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
+
+from app.models import AppointmentStatus, UserRole
 
 FISCAL_CODE_RE = re.compile(r"^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$")
 
@@ -87,5 +89,46 @@ class DoctorUpdate(BaseModel):
 
 class DoctorOut(DoctorBase):
     id: int
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class RegisterIn(PatientBase):
+    password: str = Field(min_length=8, max_length=72)
+
+
+class LoginOut(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
+class UserOut(BaseModel):
+    id: int
+    email: EmailStr
+    role: UserRole
+    patient: PatientOut | None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class AppointmentCreate(BaseModel):
+    doctor_id: int
+    scheduled_at: datetime
+    reason: str | None = Field(default=None, max_length=200)
+    patient_id: int | None = None
+
+    @field_validator("scheduled_at")
+    @classmethod
+    def strip_timezone(cls, value: datetime) -> datetime:
+        return value.replace(tzinfo=None)
+
+
+class AppointmentOut(BaseModel):
+    id: int
+    scheduled_at: datetime
+    reason: str | None
+    status: AppointmentStatus
+    doctor: DoctorOut
+    patient: PatientOut
 
     model_config = ConfigDict(from_attributes=True)

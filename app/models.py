@@ -13,6 +13,24 @@ class AppointmentStatus(str, enum.Enum):
     COMPLETED = "completata"
 
 
+class UserRole(str, enum.Enum):
+    ADMIN = "admin"
+    PATIENT = "patient"
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    email: Mapped[str] = mapped_column(String(120), unique=True, index=True)
+    hashed_password: Mapped[str] = mapped_column(String(100))
+    role: Mapped[UserRole] = mapped_column(default=UserRole.PATIENT)
+    patient_id: Mapped[int | None] = mapped_column(ForeignKey("patients.id"), unique=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+    patient: Mapped["Patient | None"] = relationship()
+
+
 class Patient(Base):
     __tablename__ = "patients"
 
