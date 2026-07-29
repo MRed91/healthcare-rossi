@@ -1,7 +1,21 @@
 from datetime import date, datetime, time, timedelta
 
 from app.database import Base, SessionLocal, engine
-from app.models import Appointment, AppointmentStatus, Doctor, Patient
+from app.models import Appointment, AppointmentStatus, Doctor, Patient, User, UserRole
+from app.security import hash_password
+
+
+def create_users(db):
+    if db.query(User).first():
+        return 0
+    users = [User(email="admin@centromedicorossi.it", hashed_password=hash_password("admin123!"),
+                  role=UserRole.ADMIN)]
+    for patient in db.query(Patient).all():
+        users.append(User(email=patient.email, hashed_password=hash_password("paziente123!"),
+                          role=UserRole.PATIENT, patient_id=patient.id))
+    db.add_all(users)
+    db.commit()
+    return len(users)
 
 
 def main():
@@ -9,7 +23,11 @@ def main():
     db = SessionLocal()
     try:
         if db.query(Doctor).first():
-            print("Database già popolato, nessuna modifica")
+            created = create_users(db)
+            if created:
+                print(f"Database già popolato, aggiunti {created} utenti")
+            else:
+                print("Database già popolato, nessuna modifica")
             return
 
         doctors = [
@@ -53,7 +71,11 @@ def main():
 
         db.add_all(appointments)
         db.commit()
-        print(f"Inseriti {len(doctors)} medici, {len(patients)} pazienti, {len(appointments)} appuntamenti")
+        created = create_users(db)
+        print(f"Inseriti {len(doctors)} medici, {len(patients)} pazienti, "
+              f"{len(appointments)} appuntamenti, {created} utenti")
+        print("Credenziali di prova: admin@centromedicorossi.it / admin123! - "
+              "mario.verdi@example.com / paziente123!")
     finally:
         db.close()
 

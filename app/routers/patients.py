@@ -5,8 +5,9 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Patient
 from app.schemas import Page, PatientCreate, PatientOut, PatientUpdate
+from app.security import require_admin
 
-router = APIRouter(prefix="/api/patients", tags=["Pazienti"])
+router = APIRouter(prefix="/api/patients", tags=["Pazienti"], dependencies=[Depends(require_admin)])
 
 
 def get_patient_or_404(patient_id: int, db: Session) -> Patient:

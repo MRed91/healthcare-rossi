@@ -1,4 +1,4 @@
-from xxlimited_35 import Null
+from datetime import date, datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import func, select
@@ -6,7 +6,9 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models import Doctor
+from app.scheduling import free_slots
 from app.schemas import DoctorCreate, DoctorOut, DoctorUpdate, Page
+from app.security import require_admin
 
 router = APIRouter(prefix="/api/doctors", tags=["Medici"])
 
@@ -56,7 +58,18 @@ def get_doctor(doctor_id: int, db: Session = Depends(get_db)):
     return get_doctor_or_404(doctor_id, db)
 
 
-@router.post("", response_model=DoctorOut, status_code=201, summary="Inserisce un nuovo medico")
+@router.get("/{doctor_id}/slots", response_model=list[datetime], summary="Orari liberi del medico in una giornata")
+def list_free_slots(
+    doctor_id: int,
+    day: date = Query(description="Giornata richiesta, formato AAAA-MM-GG"),
+    db: Session = Depends(get_db),
+):
+    doctor = get_doctor_or_404(doctor_id, db)
+    return free_slots(db, doctor, day)
+
+
+@router.post("", response_model=DoctorOut, status_code=201, summary="Inserisce un nuovo medico",
+             dependencies=[Depends(require_admin)])
 def create_doctor(data: DoctorCreate, db: Session = Depends(get_db)):
     check_unique_email(db, data.email)
     doctor = Doctor(**data.model_dump())
@@ -66,7 +79,8 @@ def create_doctor(data: DoctorCreate, db: Session = Depends(get_db)):
     return doctor
 
 
-@router.patch("/{doctor_id}", response_model=DoctorOut, summary="Aggiorna un medico")
+@router.patch("/{doctor_id}", response_model=DoctorOut, summary="Aggiorna un medico",
+              dependencies=[Depends(require_admin)])
 def update_doctor(doctor_id: int, data: DoctorUpdate, db: Session = Depends(get_db)):
     doctor = get_doctor_or_404(doctor_id, db)
     changes = data.model_dump(exclude_unset=True)
@@ -78,7 +92,8 @@ def update_doctor(doctor_id: int, data: DoctorUpdate, db: Session = Depends(get_
     return doctor
 
 
-@router.delete("/{doctor_id}", status_code=204, summary="Elimina un medico")
+@router.delete("/{doctor_id}", status_code=204, summary="Elimina un medico",
+               dependencies=[Depends(require_admin)])
 def delete_doctor(doctor_id: int, db: Session = Depends(get_db)):
     doctor = get_doctor_or_404(doctor_id, db)
     db.delete(doctor)
