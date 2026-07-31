@@ -32,6 +32,10 @@ async function loadDoctors() {
                 <h3>Dott. ${doc.first_name} ${doc.last_name}</h3>
                 <p class="specialization">${doc.specialization}</p>
                 <p class="detail">Durata visita: ${doc.visit_duration_minutes} minuti</p>
+                <p style="margin-top: 0.75rem;">
+                    <a class="btn-secondary btn-small" style="text-decoration: none;"
+                       href="/prenota.html?doctor=${doc.id}">Prenota</a>
+                </p>
             `;
             list.appendChild(card);
         }

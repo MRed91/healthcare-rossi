@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prenota una visita - Centro Medico Rossi</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <span class="logo">✚ Centro Medico Rossi</span>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/medici.html">Medici</a>
+            <a href="/prenota.html" class="active">Prenota</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-head">
+            <h1>Prenota una visita</h1>
+        </section>
+
+        <section class="card">
+            <div class="form-grid">
+                <div class="field">
+                    <label for="doctor-select">Medico</label>
+                    <select id="doctor-select"></select>
+                </div>
+                <div class="field">
+                    <label for="day-input">Giorno (lun-ven)</label>
+                    <input type="date" id="day-input">
+                </div>
+                <div class="field" id="patient-field" hidden>
+                    <label for="patient-select">Prenota per conto di</label>
+                    <select id="patient-select"></select>
+                </div>
+            </div>
+
+            <div id="slots-section" hidden>
+                <p style="margin-top: 1.25rem; font-weight: 600;">Orari disponibili</p>
+                <div id="slots" class="slots-grid"></div>
+            </div>
+
+            <div class="field" style="margin-top: 1.25rem;">
+                <label for="reason-input">Motivo della visita (facoltativo)</label>
+                <input type="text" id="reason-input" maxlength="200" placeholder="es. visita di controllo">
+            </div>
+
+            <div id="booking-message" hidden></div>
+
+            <div class="form-actions">
+                <button id="confirm-btn" class="btn-primary" disabled>Conferma prenotazione</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Project Work — CdS Informatica per le Aziende Digitali (L-31) - Rossi</p>
+    </footer>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/prenota.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le mie visite - Centro Medico Rossi</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <span class="logo">✚ Centro Medico Rossi</span>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/medici.html">Medici</a>
+            <a href="/prenota.html">Prenota</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-head">
+            <h1>Le mie visite</h1>
+            <a href="/prenota.html" class="btn-primary btn-small" style="text-decoration: none;">Nuova prenotazione</a>
+        </section>
+
+        <p id="welcome" class="hint"></p>
+        <div id="page-message" hidden></div>
+
+        <section class="card">
+            <h2>Prossime visite</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Data e ora</th><th>Medico</th><th>Motivo</th><th>Stato</th><th></th></tr>
+                    </thead>
+                    <tbody id="upcoming-body"></tbody>
+                </table>
+            </div>
+            <p id="upcoming-empty" class="hint" hidden>Non hai visite in programma.</p>
+        </section>
+
+        <section class="card">
+            <h2>Storico</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Data e ora</th><th>Medico</th><th>Motivo</th><th>Stato</th></tr>
+                    </thead>
+                    <tbody id="past-body"></tbody>
+                </table>
+            </div>
+            <p id="past-empty" class="hint" hidden>Nessuna visita passata.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Project Work — CdS Informatica per le Aziende Digitali (L-31) - Rossi</p>
+    </footer>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/area-personale.js"></script>
+</body>
+</html>

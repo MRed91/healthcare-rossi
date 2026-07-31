@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accedi - Centro Medico Rossi</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <span class="logo">✚ Centro Medico Rossi</span>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/medici.html">Medici</a>
+            <a href="/prenota.html">Prenota</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="card" style="max-width: 420px; margin: 0 auto;">
+            <h2>Accedi</h2>
+            <form id="login-form">
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required autocomplete="username">
+                </div>
+                <div class="field" style="margin-top: 1rem;">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required autocomplete="current-password">
+                </div>
+                <div id="login-error" class="alert alert-error" hidden></div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Accedi</button>
+                </div>
+            </form>
+            <p class="hint" style="margin-top: 1.25rem;">
+                Non hai un account? <a href="/registrazione.html">Registrati</a>
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Project Work — CdS Informatica per le Aziende Digitali (L-31) - Rossi</p>
+    </footer>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>
