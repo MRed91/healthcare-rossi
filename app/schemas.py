@@ -132,3 +132,23 @@ class AppointmentOut(BaseModel):
     patient: PatientOut
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class DayCount(BaseModel):
+    day: date
+    count: int
+
+
+class DoctorCount(BaseModel):
+    doctor: str
+    specialization: str
+    count: int
+
+
+class StatsOut(BaseModel):
+    total_patients: int
+    active_appointments: int
+    completed_appointments: int
+    cancelled_appointments: int
+    next_days: list[DayCount]
+    per_doctor: list[DoctorCount]
