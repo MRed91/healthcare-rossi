@@ -16,20 +16,35 @@
         </nav>
     </header>
 
-    <main>
+    <main class="wide">
         <section class="page-head">
             <h1>Amministrazione</h1>
         </section>
 
         <div class="tabs">
-            <button class="tab-btn active" data-tab="agenda">Agenda</button>
+            <button class="tab-btn active" data-tab="stats">Statistiche</button>
+            <button class="tab-btn" data-tab="agenda">Agenda</button>
             <button class="tab-btn" data-tab="patients">Pazienti</button>
             <button class="tab-btn" data-tab="doctors">Medici</button>
         </div>
 
         <div id="page-message" hidden></div>
 
-        <section id="tab-agenda" class="card">
+        <section id="tab-stats">
+            <div class="kpi-row" id="kpi-row"></div>
+            <div class="charts-row">
+                <div class="card">
+                    <h2>Prenotazioni nei prossimi 7 giorni</h2>
+                    <div class="chart-columns" id="chart-days"></div>
+                </div>
+                <div class="card">
+                    <h2>Visite per medico</h2>
+                    <div class="chart-rows" id="chart-doctors"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-agenda" class="card" hidden>
             <h2>Agenda della clinica</h2>
             <div class="filters">
                 <div class="field">

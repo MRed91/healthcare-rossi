@@ -25,11 +25,64 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
         document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        for (const name of ["agenda", "patients", "doctors"]) {
+        for (const name of ["stats", "agenda", "patients", "doctors"]) {
             document.getElementById("tab-" + name).hidden = name !== btn.dataset.tab;
         }
     });
 });
+
+// --- statistiche ---
+
+const WEEKDAYS = ["dom", "lun", "mar", "mer", "gio", "ven", "sab"];
+
+function statTile(label, value) {
+    return `<div class="stat-tile"><div class="label">${label}</div><div class="value">${value}</div></div>`;
+}
+
+async function loadStats() {
+    const stats = await apiGet("/api/stats");
+
+    document.getElementById("kpi-row").innerHTML =
+        statTile("Prenotazioni attive", stats.active_appointments) +
+        statTile("Visite completate", stats.completed_appointments) +
+        statTile("Visite annullate", stats.cancelled_appointments) +
+        statTile("Pazienti registrati", stats.total_patients);
+
+    const daysBox = document.getElementById("chart-days");
+    daysBox.innerHTML = "";
+    const maxDay = Math.max(1, ...stats.next_days.map((d) => d.count));
+    for (const item of stats.next_days) {
+        const day = new Date(item.day + "T00:00:00");
+        const height = Math.round((item.count / maxDay) * 120);
+        const bar = item.count > 0
+            ? `<div class="col-bar" style="height: ${Math.max(height, 6)}px"></div>`
+            : '<div class="col-bar empty"></div>';
+        daysBox.insertAdjacentHTML("beforeend",
+            `<div class="col-item" title="${day.toLocaleDateString("it-IT", { dateStyle: "full" })}">
+                <div class="col-value">${item.count}</div>${bar}
+                <div class="col-day">${WEEKDAYS[day.getDay()]} ${day.getDate()}</div>
+            </div>`);
+    }
+
+    const doctorsBox = document.getElementById("chart-doctors");
+    doctorsBox.innerHTML = "";
+    if (stats.per_doctor.length === 0) {
+        doctorsBox.innerHTML = '<p class="hint">Nessuna visita registrata.</p>';
+        return;
+    }
+    const maxDoc = Math.max(1, ...stats.per_doctor.map((d) => d.count));
+    for (const item of stats.per_doctor) {
+        const width = Math.max(Math.round((item.count / maxDoc) * 100), 3);
+        doctorsBox.insertAdjacentHTML("beforeend",
+            `<div class="row-item" title="${item.doctor} - ${item.specialization}">
+                <div class="row-name">${item.doctor}</div>
+                <div class="row-track">
+                    <div class="row-bar" style="width: ${width}%"></div>
+                    <div class="row-value">${item.count}</div>
+                </div>
+            </div>`);
+    }
+}
 
 // --- agenda ---
 
@@ -224,6 +277,6 @@ document.getElementById("doctor-form-reset").addEventListener("click", () => fil
 // --- avvio ---
 
 if (adminUser && adminUser.role === "admin") {
-    Promise.all([loadAgendaDoctors(), loadAgenda(), loadPatients(), loadDoctorsAdmin()])
+    Promise.all([loadStats(), loadAgendaDoctors(), loadAgenda(), loadPatients(), loadDoctorsAdmin()])
         .catch((err) => showPageMessage("error", err.message));
 }
