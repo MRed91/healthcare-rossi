@@ -75,6 +75,5 @@ healthcare-api/
 │   ├── css/           # Fogli di stile
 │   ├── js/            # Script client (sessione, chiamate alle API, logica pagine)
 │   └── *.html         # Home, medici, prenotazione, login, area personale, admin
-├── requirements.txt   # Dipendenze Python
-└── ROADMAP.md         # Fasi di sviluppo del progetto
+└── Rrequirements.txt   # Dipendenze Python
 ```
