@@ -8,8 +8,6 @@ Project Work per il CdS *Informatica per le Aziende Digitali* (L-31), Universit�
 
 Applicazione full-stack per la gestione delle prenotazioni di visite mediche del **Centro Medico Aurora**, una clinica privata (caso di studio). Il sistema espone un backend REST sviluppato con **FastAPI** e un frontend in **HTML/CSS/JavaScript** per pazienti e amministrazione.
 
-Lo sviluppo procede per fasi incrementali, documentate in [ROADMAP.md](ROADMAP.md).
-
 ## Stack tecnologico
 
 - **Backend:** Python 3.12+, FastAPI, SQLAlchemy
@@ -47,6 +45,16 @@ L'applicazione è raggiungibile su `http://127.0.0.1:8000`:
 
 Lo script di seed crea due utenze di prova: `admin@centromedicorossi.it` / `admin123!` (amministrazione) e `mario.verdi@example.com` / `paziente123!` (paziente).
 
+## Test
+
+La suite automatica usa pytest e il TestClient di FastAPI, con un database SQLite di prova
+ricreato prima di ogni test e rimosso al termine: i dati di sviluppo non vengono mai toccati.
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest tests -v
+```
+
 ## Struttura del progetto
 
 ```
@@ -62,6 +70,7 @@ healthcare-api/
 │   ├── seed.py        # Popolamento del database con dati di esempio
 │   └── main.py        # Entry point e factory FastAPI
 ├── docs/              # Documentazione di progetto (diagramma ER)
+├── tests/             # Test automatici (pytest + TestClient)
 ├── frontend/
 │   ├── css/           # Fogli di stile
 │   ├── js/            # Script client (sessione, chiamate alle API, logica pagine)
