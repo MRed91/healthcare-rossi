@@ -87,6 +87,8 @@ main.wide {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    display: flex;
+    text-align: center;
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -167,6 +169,7 @@ footer {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: 1rem;
+    text-align: center;
 }
 
 .doctor-card {
@@ -237,6 +240,7 @@ footer {
     display: flex;
     gap: 0.75rem;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
