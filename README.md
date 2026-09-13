@@ -6,7 +6,7 @@ Project Work per il CdS *Informatica per le Aziende Digitali* (L-31), Universit√
 
 ## Il progetto
 
-Applicazione full-stack per la gestione delle prenotazioni di visite mediche del **Centro Medico Aurora**, una clinica privata (caso di studio). Il sistema espone un backend REST sviluppato con **FastAPI** e un frontend in **HTML/CSS/JavaScript** per pazienti e amministrazione.
+Applicazione full-stack per la gestione delle prenotazioni di visite mediche del **Centro Medico Rossi**, una clinica privata (caso di studio). Il sistema espone un backend REST sviluppato con **FastAPI** e un frontend in **HTML/CSS/JavaScript** per pazienti e amministrazione.
 
 ## Stack tecnologico
 
