@@ -1,0 +1,5 @@
+# Dipendenze usate solo in sviluppo, non necessarie in produzione
+-r requirements.txt
+
+pytest>=8.0
+httpx>=0.27
