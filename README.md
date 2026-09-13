@@ -40,6 +40,7 @@ L'applicazione è raggiungibile su `http://127.0.0.1:8000`:
 - `http://127.0.0.1:8000/api/patients` — API pazienti (solo amministrazione)
 - `http://127.0.0.1:8000/api/doctors` — API medici, con orari liberi su `/{id}/slots`
 - `http://127.0.0.1:8000/api/appointments` — API prenotazioni
+- `http://127.0.0.1:8000/api/stats` — API amministrazione
 - `http://127.0.0.1:8000/docs` — documentazione Swagger UI
 - `http://127.0.0.1:8000/redoc` — documentazione ReDoc
 
